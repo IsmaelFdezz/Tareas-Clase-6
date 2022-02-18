@@ -109,3 +109,75 @@ Al hacer click en "calcular", mostrar en un elemento pre-existente el mayor sala
 
 Punto bonus: si hay inputs vacíos, ignorarlos en el cálculo (no contarlos como 0).
 */
+
+document.querySelector("#boton-agregar").onclick = function(event) {
+    agregarCampo()
+    mostrarBotonCalcularSalarios()
+
+    event.preventDefault()
+}
+
+document.querySelector("#boton-quitar").onclick = function(event) {
+    quitarCampo()
+
+    event.preventDefault()
+}
+
+document.querySelector("#calcular-salarios").onclick = function(event) {
+    const numeros = obtenerSalarios()
+    mostrarSalarios("mayor", obtenerMayorNumero(numeros))
+    mostrarSalarios("menor", obtenerMenorNumero(numeros))
+    mostrarSalarios("promedioAnual", obtenerPromedio(numeros))
+    mostrarSalarios("promedioMensual", obtenerPromedioMensual(numeros))
+    mostrarResultadosSalarios()
+
+    event.preventDefault()
+}
+
+
+function agregarCampo() {
+    const $divSalario = document.createElement("div")
+    $divSalario.className = "salario"
+
+    const $labelSalario = document.createElement("label")
+    $labelSalario.textContent = "Ingresa el salario anual"
+
+    const $inputSalario = document.createElement("input")
+    $inputSalario.type = "number"
+    $inputSalario.className = "inputSalarios"
+
+    $divSalario.appendChild($labelSalario)
+    $divSalario.appendChild($inputSalario)
+
+    const $divSalarios = document.querySelector("#salarios")
+    $divSalarios.appendChild($divSalario)
+}
+
+function quitarCampo() {
+    const $divSalario = document.querySelector(".salario").remove()
+}
+
+function mostrarBotonCalcularSalarios() {
+    document.querySelector("#calcular-salarios").className = " "
+}
+
+function mostrarResultadosSalarios() {
+    document.querySelector("#analisis-salarios").className = " "
+}
+
+function mostrarSalarios(tipo, valor) {
+    document.querySelector(`#${tipo}-salario`).textContent = valor
+}
+
+function obtenerSalarios() {
+    const $salarios = document.querySelectorAll(".inputSalarios")
+    const arraySalarios = []
+
+    for(let i = 0; i < $salarios.length; i++) {
+        if($salarios[i].value !== "") {
+            arraySalarios.push(Number($salarios[i].value))
+        }
+    }
+    return arraySalarios
+}
+

@@ -25,3 +25,8 @@ function obtenerPromedio(numeros) {
     }
     return (acumuladorNumeros / numeros.length).toFixed(2)
 }
+
+function obtenerPromedioMensual(numeros) {
+    const mesesEnUnAño = 12
+    return obtenerPromedio(numeros) / mesesEnUnAño
+}
